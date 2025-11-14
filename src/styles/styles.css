@@ -1,0 +1,248 @@
+:root {
+  /* Color Palette */
+  --bg: #f5f8fc; 
+  --card: #ffffff;
+  --muted: #6b7280;
+  --accent: #2c3e50; 
+  --primary: #3498db; 
+  --border: #e8eef2;
+  --shadow: 0 4px 16px rgba(44, 62, 80, 0.08); 
+  --shadow-hover: 0 8px 25px rgba(44, 62, 80, 0.15); /* Stronger hover shadow */
+  
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+/* Keyframe for subtle floating animation */
+@keyframes subtle-float {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-1px); } /* Slight upward movement */
+    100% { transform: translateY(0); }
+}
+
+/* Base Styles */
+* {
+  box-sizing: border-box
+}
+
+body {
+  margin: 0;
+  /*Gradient Background */
+  background: linear-gradient(135deg, var(--bg) 0%, #fcfdfe 100%);
+  color: var(--accent);
+  min-height: 100vh;
+}
+
+.app-container {
+  max-width: 920px;
+  margin: 40px auto; 
+  padding: 20px;
+}
+
+/* Header */
+.app-header {
+  margin-bottom: 24px;
+  text-align: center
+}
+
+.app-header h1 {
+  margin: 0;
+  font-size: 1.8rem; 
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.subtitle {
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-size: 1rem;
+}
+
+/* Search Card Container */
+.topic-search-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  /* Added a very slight internal gradient to the search card for depth */
+  background: linear-gradient(180deg, #ffffff, #fcfdfe);
+  padding: 24px;
+  border-radius: 16px; 
+  transition: box-shadow 0.3s;
+}
+
+/* Search Input */
+.search-input {
+  width: 100%;
+  padding: 14px 16px; 
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  font-size: 1rem;
+  margin-bottom: 20px;
+  outline: none;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.search-input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px rgba(52, 152, 219, 0.2); 
+}
+
+/* Topics Grid */
+.topics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); 
+  gap: 16px; 
+}
+
+/* Topic Card */
+.topic-card {
+  border-radius: 12px;
+  padding: 16px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  min-height: 80px; 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: default;
+  /* Apply subtle floating animation */
+  animation: subtle-float 4s ease-in-out infinite; 
+}
+
+/* Stagger the animation start time for aesthetic variety */
+.topics-grid article:nth-child(even) {
+    animation-delay: 0.5s;
+}
+.topics-grid article:nth-child(3n) {
+    animation-delay: 1s;
+}
+
+.topic-card:hover {
+  transform: translateY(-4px) scale(1.02); /* More pronounced lift on hover */
+  box-shadow: var(--shadow-hover);
+  border-color: var(--primary); 
+  animation: none; /* Stop floating on hover */
+}
+
+.topic-name {
+  margin: 0 0 4px;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.topic-category {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+/* No Results Message */
+.no-results {
+  padding: 30px;
+  text-align: center;
+  color: var(--muted);
+  grid-column: 1/-1;
+  font-style: italic;
+  font-size: 1.1rem;
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  margin-top: 30px; 
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* --- DARK MODE STYLES --- */
+/* (This block should be placed at the bottom of styles.css) */
+
+.dark-mode {
+  /* Set dark colors for the body */
+  --bg: #1e293b; /* Dark slate background */
+  --card: #334155; /* Slightly lighter card background */
+  --accent: #f8fafc; /* Light text color */
+  --muted: #94a3b8; /* Muted light gray */
+  --border: #334155; /* Darker border color */
+  --shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+.dark-mode body {
+  /* Override the linear gradient on the body for dark mode */
+  background: var(--bg);
+}
+
+.dark-mode .topic-search-card {
+  /* Apply dark colors and shadow override to the main container */
+  background: var(--card);
+  box-shadow: var(--shadow);
+  /* Remove internal gradient in dark mode for simplicity */
+  background: var(--card); 
+}
+
+.dark-mode .topic-card {
+  /* Apply dark colors and shadow override to topic cards */
+  background: var(--card);
+  border-color: var(--border);
+}
+
+.dark-mode .topic-card:hover {
+  /* Ensure hover effect looks good in dark mode */
+  border-color: var(--primary); /* Keep blue accent */
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+}
+
+.dark-mode .search-input {
+  /* Style for the search input in dark mode */
+  background-color: #1e293b;
+  color: var(--accent);
+  border-color: var(--border);
+}
+
+/* Update App Header to be a positioning context for the absolute button */
+.app-header {
+  margin-bottom: 24px;
+  text-align: center;
+  position: relative; /* <--- KEY: Makes children absolute relative to this */
+}
+
+/* New Styles for the Dark Mode Toggle Button */
+.theme-toggle-button {
+  position: absolute; /* <--- KEY: Positions relative to app-header */
+  top: 10px;
+  right: 10px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 50%; /* Makes it circular */
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  font-size: 1.2rem;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  transition: all 0.2s ease-in-out;
+  z-index: 10;
+}
+
+.theme-toggle-button:hover {
+  transform: scale(1.1);
+  box-shadow: var(--shadow-hover);
+}
+
+/* Dark Mode Button Styling */
+.dark-mode .theme-toggle-button {
+  background: var(--card);
+  border-color: var(--muted);
+}
